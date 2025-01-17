@@ -1,0 +1,39 @@
+# Workflow designed for the automated dependabot-updates integration
+name: Dependabot updates
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v3
+      - name: setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: install dependencies
+        run: npm install
+      - name: create dependabot config file
+        run: |
+          echo "version: 2" > .github/dependabot.yml
+          echo "updates:" >> .github/dependabot.yml
+          echo " - package-ecosystem: 'npm'" >> .github/dependabot.yml
+          echo "directory: '/'" >> .github/dependabot.yml
+          echo "schedule:" >> .github/dependabot.yml
+          echo "  push:" >> .github/dependabot.yml
+          echo "  pull_request:" >> .github/dependabot.yml
+          echo "  interval: 'daily'" >> .github/dependabot.yml
+      - name: trigger Dependabot
+        run: |
+          git add .github/dependabot.yml
+          git commit -m "Configured Dependabot"
+          git push
+
+
