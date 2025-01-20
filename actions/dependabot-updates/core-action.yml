@@ -1,12 +1,18 @@
 name: Dependabot updates
 
+inputs:
+  node-version-provided:
+    description: 'Specify node version'
+    required: false
+    default: 18
+    
 runs:
   using: composite
   steps:
     - name: setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 18
+        node-version: inputs.node-version-provided
     - name: install dependencies
       run: npm install
     - name: create dependabot config file
