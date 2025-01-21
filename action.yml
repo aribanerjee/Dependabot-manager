@@ -1,6 +1,5 @@
 name: Dependabot updates
 description: Custom GitHub action to automate the Dependabot management
-author: Aritra Banerjee
 
 inputs:
   package-ecosystem:
@@ -21,7 +20,6 @@ runs:
     - name: create dependabot config file and commit changes
       shell: bash
       run: |
-        mkdir -p .github
         echo "version: 2" > .github/dependabot.yml
         echo "updates:" >> .github/dependabot.yml
         echo "  package-ecosystem: '${{inputs.package-ecosystem}}'" >> .github/dependabot.yml
@@ -29,8 +27,6 @@ runs:
         echo "  schedule:" >> .github/dependabot.yml
         echo "    ${{inputs.trigger-event}}:" >> .github/dependabot.yml
         echo "    interval: '${{inputs.interval}}'" >> .github/dependabot.yml
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .github/dependabot.yml
         git commit -m "Configured Dependabot"
         git push
