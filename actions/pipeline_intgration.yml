@@ -32,3 +32,4 @@ runs:
         git add .github/dependabot.yml
         git commit -m "Configured Dependabot"
         git push
+version: 'v1'
