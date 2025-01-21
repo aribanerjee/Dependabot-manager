@@ -1,4 +1,5 @@
 name: Dependabot updates
+description: Custom GitHub action to automate the Dependabot management
 
 inputs:
   package-ecosystem:
