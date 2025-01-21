@@ -26,7 +26,7 @@ runs:
           schedule:
             ${{inputs.trigger-event}}"
             interval: ${{inputs.interval}}
-        " >> .github/dependabot.yml
+        " > .github/dependabot.yml
     - name: trigger Dependabot
       run: |
         git add .github/dependabot.yml
