@@ -20,16 +20,14 @@ runs:
     - name: create dependabot config file
       shell: bash
       run: |
-        echo "
-        version: 2
-        updates:
-          package-ecosystem: ${{inputs.package-ecosystem}}
-          directory: '/'
-          schedule:
-            ${{inputs.trigger-event}}"
-            interval: ${{inputs.interval}}
-        " > .github/dependabot.yml
-    - name: trigger Dependabot
+        echo "version: 2" > .github/dependabot.yml
+        echo "updates:" >> .github/dependabot.yml
+        echo "  package-ecosystem: ${{inputs.package-ecosystem}}" >> .github/dependabot.yml
+        echo "  directory: '/'" >> .github/dependabot.yml
+        echo "  schedule:" >> .github/dependabot.yml
+        echo "    ${{inputs.trigger-event}}" >> .github/dependabot.yml
+        echo "    interval: ${{inputs.interval}}" >> .github/dependabot.yml
+    - name: Commit changes
       shell: bash
       run: |
         git add .github/dependabot.yml
