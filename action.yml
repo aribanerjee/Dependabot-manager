@@ -17,9 +17,10 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: create dependabot config file
+    - name: create dependabot config file and commit changes
       shell: bash
       run: |
+        cd /
         echo "version: 2" > .github/dependabot.yml
         echo "updates:" >> .github/dependabot.yml
         echo "  package-ecosystem: ${{inputs.package-ecosystem}}" >> .github/dependabot.yml
@@ -27,9 +28,6 @@ runs:
         echo "  schedule:" >> .github/dependabot.yml
         echo "    ${{inputs.trigger-event}}" >> .github/dependabot.yml
         echo "    interval: ${{inputs.interval}}" >> .github/dependabot.yml
-    - name: Commit changes
-      shell: bash
-      run: |
         git add .github/dependabot.yml
         git commit -m "Configured Dependabot"
         git push
