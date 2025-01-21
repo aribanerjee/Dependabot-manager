@@ -23,7 +23,7 @@ runs:
     - name: create dependabot config file and commit changes
       shell: bash
       run: |
-        cd /
+        mkdir -p .github
         echo "version: 2" > ${{inputs.file-path}}
         echo "updates:" >> .github/dependabot.yml
         echo "  package-ecosystem: '${{inputs.package-ecosystem}}'" >> ${{inputs.file-path}}
