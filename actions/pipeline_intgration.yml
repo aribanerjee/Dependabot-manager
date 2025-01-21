@@ -1,1 +1,33 @@
-TBD
+name: Dependabot updates
+
+inputs:
+  package-ecosystem:
+    description: 'Specify the list of package ecosystem names'
+    required: true
+  trigger-event:
+    description: 'Specify the list of trigger-events'
+    required: false
+    default: 'push'
+  Interval:
+    description: 'Specify the Interval on which Dependabot should be triggered'
+    required: false
+    default: 'daily'
+    
+runs:
+  using: composite
+  steps:
+    - name: create dependabot config file
+      run: |
+        echo "version: 2" > .github/dependabot.yml
+        echo "updates:" >> .github/dependabot.yml
+        echo " - package-ecosystem: 'npm'" >> .github/dependabot.yml
+        echo "directory: '/'" >> .github/dependabot.yml
+        echo "schedule:" >> .github/dependabot.yml
+        echo "  push:" >> .github/dependabot.yml
+        echo "  pull_request:" >> .github/dependabot.yml
+        echo "  interval: 'daily'" >> .github/dependabot.yml
+    - name: trigger Dependabot
+      run: |
+        git add .github/dependabot.yml
+        git commit -m "Configured Dependabot"
+        git push
