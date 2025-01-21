@@ -7,25 +7,26 @@ inputs:
   trigger-event:
     description: 'Specify the list of trigger-events'
     required: false
-    default: 'push'
-  Interval:
+    default: ['push']
+  interval:
     description: 'Specify the Interval on which Dependabot should be triggered'
     required: false
-    default: 'daily'
+    default: ['daily']
     
 runs:
   using: composite
   steps:
     - name: create dependabot config file
       run: |
-        echo "version: 2" > .github/dependabot.yml
-        echo "updates:" >> .github/dependabot.yml
-        echo " - package-ecosystem: 'npm'" >> .github/dependabot.yml
-        echo "directory: '/'" >> .github/dependabot.yml
-        echo "schedule:" >> .github/dependabot.yml
-        echo "  push:" >> .github/dependabot.yml
-        echo "  pull_request:" >> .github/dependabot.yml
-        echo "  interval: 'daily'" >> .github/dependabot.yml
+        echo "
+        version: 2
+        updates:
+          package-ecosystem: ${{inputs.package-ecosystem}}
+          directory: '/'
+          schedule:
+            ${{inputs.trigger-event}}"
+            interval: ${{inputs.interval}}
+        " >> .github/dependabot.yml
     - name: trigger Dependabot
       run: |
         git add .github/dependabot.yml
