@@ -18,6 +18,7 @@ runs:
   using: composite
   steps:
     - name: create dependabot config file
+      shell: bash
       run: |
         echo "
         version: 2
@@ -29,8 +30,14 @@ runs:
             interval: ${{inputs.interval}}
         " > .github/dependabot.yml
     - name: trigger Dependabot
+      shell: bash
       run: |
         git add .github/dependabot.yml
         git commit -m "Configured Dependabot"
         git push
+
 version: 'v1.0.0'
+
+branding:
+  icon: 'activity'
+  color: 'yellow'
