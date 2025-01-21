@@ -7,11 +7,11 @@ inputs:
   trigger-event:
     description: 'Specify the list of trigger-events'
     required: false
-    default: ['push']
+    default: 'push'
   interval:
     description: 'Specify the Interval on which Dependabot should be triggered'
     required: false
-    default: ['daily']
+    default: 'daily'
     
 runs:
   using: composite
