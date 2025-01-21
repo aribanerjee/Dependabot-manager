@@ -1,1 +1,1 @@
-"# Dependabot-manager" 
+# Dependabot-manager
