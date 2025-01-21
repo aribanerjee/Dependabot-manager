@@ -2,9 +2,6 @@ name: Dependabot updates
 description: Custom GitHub action to automate the Dependabot management
 
 inputs:
-  file-path:
-    description: 'Specify the location of Dependabot.yml file'
-    required: true
   package-ecosystem:
     description: 'Specify the list of package ecosystem names'
     required: true
@@ -24,13 +21,13 @@ runs:
       shell: bash
       run: |
         mkdir -p .github
-        echo "version: 2" > ${{inputs.file-path}}
+        echo "version: 2" > .github/dependabot.yml
         echo "updates:" >> .github/dependabot.yml
-        echo "  package-ecosystem: '${{inputs.package-ecosystem}}'" >> ${{inputs.file-path}}
-        echo "  directory: '/'" >> ${{inputs.file-path}}
-        echo "  schedule:" >> ${{inputs.file-path}}
-        echo "    ${{inputs.trigger-event}}:" >> ${{inputs.file-path}}
-        echo "    interval: '${{inputs.interval}}'" >> ${{inputs.file-path}}
+        echo "  package-ecosystem: '${{inputs.package-ecosystem}}'" >> .github/dependabot.yml
+        echo "  directory: '/'" >> .github/dependabot.yml
+        echo "  schedule:" >> .github/dependabot.yml
+        echo "    ${{inputs.trigger-event}}:" >> .github/dependabot.yml
+        echo "    interval: '${{inputs.interval}}'" >> .github/dependabot.yml
         git add .github/dependabot.yml
         git commit -m "Configured Dependabot"
         git push
