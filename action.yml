@@ -28,7 +28,7 @@ runs:
           jira-email: ${{ inputs.JIRA_EMAIL }}
           jira-api-token: ${{ inputs.JIRA_API_TOKEN }}
           jira-project: ${{ inputs.PROJECT_ID }}
-          git-email: GRP-MY-TEAM@hyland.com
+          git-email: aritra.banerjee2@hyland.com
           github-token: ${{ inputs.GITHUB_TOKEN }}
 
 version: 'v2.0'
