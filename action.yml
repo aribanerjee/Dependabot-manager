@@ -3,38 +3,35 @@ description: Custom GitHub action to automate the Dependabot management
 author: Aritra Banerjee
 
 inputs:
-  package-ecosystem:
-    description: 'Specify the list of package ecosystem names'
+  JIRA_EMAIL:
+    description: 'Specify the JIRA board ID'
     required: true
-  trigger-event:
-    description: 'Specify the list of trigger-events'
+  JIRA_API_TOKEN:
+    description: 'Specify the JIRA board ID'
     required: false
-    default: 'push'
-  interval:
-    description: 'Specify the Interval on which Dependabot should be triggered'
+    default: 'ABC'
+  PROJECT_ID:
+    description: 'Specify the JIRA board ID'
+    required: true
+  GITHUB_TOKEN:
+    description: 'Specify the JIRA board ID'
     required: false
-    default: 'daily'
+    default: 'ABC'
     
 runs:
   using: composite
   steps:
-    - name: create dependabot config file and commit changes
-      shell: bash
-      run: |
-        echo "version: 2" > .github/dependabot.yml
-        echo "updates:" >> .github/dependabot.yml
-        echo "  package-ecosystem: '${{inputs.package-ecosystem}}'" >> .github/dependabot.yml
-        echo "  directory: '/'" >> .github/dependabot.yml
-        echo "  schedule:" >> .github/dependabot.yml
-        echo "    ${{inputs.trigger-event}}:" >> .github/dependabot.yml
-        echo "    interval: '${{inputs.interval}}'" >> .github/dependabot.yml
-        git config --global user.name "Aritra Banerjee"
-        git config --global user.email "aritra.banerjee2@hyland.com"
-        git add .github/dependabot.yml
-        git commit -m "Configured Dependabot"
-        git push
+      - name: Create issue with Jira bot
+        uses: HylandSoftware/jira-bot/create@1.2.3
+        with:
+          jira-base-url: https://alfresco.atlassian.net
+          jira-email: ${{ inputs.JIRA_EMAIL }}
+          jira-api-token: ${{ inputs.JIRA_API_TOKEN }}
+          jira-project: ${{ inputs.PROJECT_ID }}
+          git-email: GRP-MY-TEAM@hyland.com
+          github-token: ${{ inputs.GITHUB_TOKEN }}
 
-version: 'v1.0'
+version: 'v2.0'
 
 branding:
   icon: 'activity'
