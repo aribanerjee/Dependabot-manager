@@ -4,17 +4,17 @@ author: Aritra Banerjee
 
 inputs:
   JIRA_EMAIL:
-    description: 'Specify the JIRA board ID'
+    description: 'Specify the JIRA email'
     required: true
   JIRA_API_TOKEN:
-    description: 'Specify the JIRA board ID'
+    description: 'Specify the JIRA API token'
     required: false
     default: 'ABC'
   PROJECT_ID:
     description: 'Specify the JIRA board ID'
     required: true
   GITHUB_TOKEN:
-    description: 'Specify the JIRA board ID'
+    description: 'Specify the GitHub token'
     required: false
     default: 'ABC'
     
